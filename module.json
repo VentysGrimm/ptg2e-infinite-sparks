@@ -1,0 +1,104 @@
+{
+  "id": "ptg2e-infinite-sparks",
+  "title": "PTG2e Infinite Sparks",
+  "description": "A Foundry Virtual Tabletop module for Infinite Sparks, a supplemental book for Part-Time Gods 2e.",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "VentysGrimm"
+    }
+  ],
+  "compatibility": {
+    "minimum": "13",
+    "verified": "14"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "part-time-gods",
+        "type": "system",
+        "compatibility": {}
+      }
+    ]
+  },
+  "esmodules": [
+    "scripts/infinite-sparks.mjs"
+  ],
+  "styles": [
+    "styles/infinite-sparks.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json"
+    }
+  ],
+  "packs": [
+    {
+      "name": "rules-reference",
+      "label": "Infinite Sparks Rules Reference",
+      "path": "packs/rules-reference",
+      "type": "JournalEntry",
+      "system": "part-time-gods",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "TRUSTED": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "name": "character-options",
+      "label": "Infinite Sparks Character Options",
+      "path": "packs/character-options",
+      "type": "Item",
+      "system": "part-time-gods",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "TRUSTED": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "name": "premade-actors",
+      "label": "Infinite Sparks Premade Actors",
+      "path": "packs/premade-actors",
+      "type": "Actor",
+      "system": "part-time-gods",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "TRUSTED": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "name": "scenes-and-handouts",
+      "label": "Infinite Sparks Scenes and Handouts",
+      "path": "packs/scenes-and-handouts",
+      "type": "Scene",
+      "system": "part-time-gods",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "TRUSTED": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "name": "macros",
+      "label": "Infinite Sparks Macros",
+      "path": "packs/macros",
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "TRUSTED": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    }
+  ]
+}
+

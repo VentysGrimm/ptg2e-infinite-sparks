@@ -1,0 +1,17 @@
+.ptg2e-infinite-sparks {
+  --ptg2e-is-accent: #8a4f2a;
+  --ptg2e-is-panel: #f7f4ef;
+  --ptg2e-is-border: #cdbda7;
+}
+
+.ptg2e-infinite-sparks .source-note {
+  border-left: 3px solid var(--ptg2e-is-accent);
+  background: var(--ptg2e-is-panel);
+  padding: 0.5rem 0.75rem;
+}
+
+.ptg2e-infinite-sparks .source-page {
+  color: #5b5148;
+  font-size: 0.85em;
+}
+

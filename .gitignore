@@ -1,0 +1,9 @@
+source-material/
+tmp/
+dist/
+*.zip
+node_modules/
+.env
+.DS_Store
+Thumbs.db
+.foundry/
