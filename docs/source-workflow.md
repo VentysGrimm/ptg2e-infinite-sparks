@@ -30,6 +30,20 @@ Do not commit files from `source-material/`.
 - `packs/premade-actors` for NPCs, deities, archetypes, or sample characters.
 - `packs/scenes-and-handouts` for ready-to-use scenes and player handouts.
 - `packs/macros` for optional utility macros tied to the supplement.
+- `packs/random-tables` for appendix RollTables.
+
+## Source-Backed Data Pipeline
+
+Versioned module-safe content lives in `scripts/data/`.
+
+- `foundry-builders.mjs` centralizes slugging, source references, and Foundry document builders.
+- `rules-reference.mjs` contains curated JournalEntry payloads with PDF-page source flags.
+- `character-options.mjs` contains source-backed Occupation career and Archetype Item payloads from Chapter Two, including full readable rules explanations for each generated Item.
+- `premade-actors.mjs` contains source-backed Chapter Three sample god character Actor payloads.
+- `random-tables.mjs` contains source-backed appendix RollTable payloads from the rendered PDF pages.
+- `premade-compendiums.mjs` creates or refreshes flagged compendium entries when a GM loads the module.
+
+Each generated document stores `flags.ptg2e-infinite-sparks.importId`, `contentVersion`, and source metadata. Bump the content version for a document when its payload changes so the runtime populator refreshes it.
 
 ## Authoring Principles
 
@@ -37,4 +51,3 @@ Do not commit files from `source-material/`.
 - Prefer readable, organized journals over raw page dumps.
 - Build compendium-native content so users only need to enable the module and browse/import packs.
 - Keep extracted text, images, and caches local unless they are transformed into module-safe content.
-

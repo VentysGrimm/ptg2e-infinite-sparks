@@ -2,7 +2,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "validate": "node tools/validate-package.mjs"
+    "validate": "node tools/validate-package.mjs",
+    "package": "node tools/package-release.mjs",
+    "release": "npm run validate && npm run package"
   }
 }
-

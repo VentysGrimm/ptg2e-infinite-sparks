@@ -37,9 +37,20 @@ Create these before heavy content entry:
 | Foundry document builders | Builders for JournalEntry, Item, Actor, and RollTable documents that match the Part-Time Gods system schema. |
 | Validation | Checks for JSON validity, missing source refs, duplicate slugs/import IDs, missing pack paths, and accidental `source-material/` leakage. |
 
+Current implemented slice:
+
+- `scripts/data/foundry-builders.mjs` creates source-aware JournalEntry text pages, Item documents, character Actor documents, and RollTable documents.
+- `scripts/data/rules-reference.mjs` starts the readable rules reference with Chapter One: When Gods Collide.
+- `scripts/data/character-options.mjs` seeds 30 Occupation career Items and 6 Archetype Items from Chapter Two, with complete source-backed creation choices, resources, attachment choices, Blessings, Curses, and rules-use explanations.
+- `scripts/data/premade-actors.mjs` seeds 9 Chapter Three sample god character Actors.
+- `scripts/data/random-tables.mjs` seeds the appendix random-generation RollTables for Attachments, Occupations, Archetypes, Dominions, and Theologies.
+- `scripts/data/premade-compendiums.mjs` populates flagged Rules Reference, Character Options, Premade Actors, and Random Tables compendium entries at GM ready.
+- `tools/validate-package.mjs` validates data imports, duplicate IDs, source page ranges, source flags, Item rules metadata, Character Options explanation completeness, Actor system metadata, RollTable result ranges, and `source-material/` leakage.
+- `tools/package-release.mjs` creates release-ready `dist/module.json` and `dist/module.zip` assets from the tracked module files while excluding local-only source and scratch folders.
+
 Likely manifest/pack additions found by this scan:
 
-- Add a `random-tables` RollTable pack.
+- Added a `random-tables` RollTable pack.
 - Consider splitting `character-options` into narrower packs once schema mapping is confirmed, such as `occupations-archetypes`, `divine-options`, and `relics`.
 
 ## Priority 2: Core Player Character Options
@@ -140,7 +151,7 @@ Create rules journal pages for:
 
 Source range: PDF pages 116-121.
 
-Create a dedicated RollTable pack. These tables should be verified from rendered pages because the PDF text extraction flattens columns.
+Implemented in `scripts/data/random-tables.mjs` as a dedicated RollTable pack. These tables were verified from rendered pages because the PDF text extraction flattens columns.
 
 | Table | Foundry Output |
 | --- | --- |
@@ -302,7 +313,7 @@ The content above should also link back to:
 
 ## Priority 7: Premade Actors and Handouts
 
-Create Actor entries for the sample gods if the system supports actor data worth filling:
+Implemented in `scripts/data/premade-actors.mjs` as source-backed character Actors:
 
 - Miakoda Atreides
 - Tavion Brooks
@@ -313,6 +324,8 @@ Create Actor entries for the sample gods if the system supports actor data worth
 - Andrej Antonov
 - Joseph Cheung
 - Eli White
+
+Each Actor includes identity, source sheet values, skills, Manifestations, resources, specialties, attachments, concise notes, and source-page flags.
 
 Create associated GM handout pages for:
 
@@ -335,17 +348,16 @@ Do not commit PDF images, extracted art, or source scans unless there is explici
 
 After content packs exist:
 
-- Add new repository URL, manifest URL, and download URL to `module.json`.
-- Add release packaging that excludes `source-material/`, `tmp/`, and caches.
+- Added repository URL, manifest URL, and download URL to `module.json`.
+- Added release packaging that excludes `source-material/`, `tmp/`, and caches.
 - Validate anonymous manifest/download installability.
 - Add pack population or migration scripts if Foundry-generated pack data needs deterministic rebuilds.
 - Add a final smoke test checklist for module activation in a Part-Time Gods world.
 
 ## Current Scaffold Gaps Found By This Scan
 
-- A RollTable pack is needed for appendix content.
+- Scenes/handouts and macros still need real generated content.
 - The current broad `character-options` pack may become crowded once Theologies, Relics, Worshippers, and Soulbound entries are added.
-- Actor schema mapping needs confirmation against the live Part-Time Gods system before sample gods are built.
+- GM handouts for sample gods, Theology histories, and story hooks still need to be built.
 - Item schema mapping needs confirmation before deciding whether Occupations, Archetypes, Failings, Bonds, Theologies, Relics, and Worshippers become Items, Journal pages, or both.
 - The PDF contains extraction artifacts, so table data and names should be checked against rendered pages when entered.
-

@@ -15,3 +15,42 @@
   font-size: 0.85em;
 }
 
+.ptg2e-infinite-sparks .ptg2e-is-table {
+  border-collapse: collapse;
+  margin: 0.75rem 0;
+  width: 100%;
+}
+
+.ptg2e-infinite-sparks .ptg2e-is-table th,
+.ptg2e-infinite-sparks .ptg2e-is-table td {
+  border: 1px solid var(--ptg2e-is-border);
+  padding: 0.4rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.ptg2e-infinite-sparks .ptg2e-is-table th {
+  background: var(--ptg2e-is-panel);
+}
+
+.ptg2e-infinite-sparks .ptg2e-is-connection-matrix td,
+.ptg2e-infinite-sparks .ptg2e-is-connection-matrix th {
+  text-align: center;
+}
+
+.ptg2e-infinite-sparks .ptg2e-is-definition-list dt {
+  font-weight: 700;
+  margin-top: 0.65rem;
+}
+
+.ptg2e-infinite-sparks .ptg2e-is-definition-list dd {
+  margin: 0.15rem 0 0.5rem 0;
+}
+
+.ptg2e-is-source-note {
+  border-top: 1px solid #d5c7b7;
+  color: #5b5148;
+  font-size: 0.85em;
+  margin-top: 1rem;
+  padding-top: 0.4rem;
+}

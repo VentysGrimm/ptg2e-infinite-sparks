@@ -3,6 +3,9 @@
   "title": "PTG2e Infinite Sparks",
   "description": "A Foundry Virtual Tabletop module for Infinite Sparks, a supplemental book for Part-Time Gods 2e.",
   "version": "0.1.0",
+  "url": "https://github.com/VentysGrimm/ptg2e-infinite-sparks",
+  "manifest": "https://raw.githubusercontent.com/VentysGrimm/ptg2e-infinite-sparks/main/module.json",
+  "download": "https://github.com/VentysGrimm/ptg2e-infinite-sparks/archive/refs/heads/main.zip",
   "authors": [
     {
       "name": "VentysGrimm"
@@ -98,7 +101,19 @@
         "ASSISTANT": "OWNER"
       },
       "flags": {}
+    },
+    {
+      "name": "random-tables",
+      "label": "Infinite Sparks Random Tables",
+      "path": "packs/random-tables",
+      "type": "RollTable",
+      "system": "part-time-gods",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "TRUSTED": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
     }
   ]
 }
-

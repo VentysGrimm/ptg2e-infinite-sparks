@@ -1,6 +1,7 @@
 {
   "PTG2EInfiniteSparks.Settings.WarnOnWrongSystem.Name": "Warn when used outside Part-Time Gods 2e",
   "PTG2EInfiniteSparks.Settings.WarnOnWrongSystem.Hint": "Show a GM-only warning if this module is enabled in a world that is not using the Part-Time Gods 2e system.",
+  "PTG2EInfiniteSparks.Settings.AutoPopulateCompendiums.Name": "Populate Infinite Sparks compendiums",
+  "PTG2EInfiniteSparks.Settings.AutoPopulateCompendiums.Hint": "Allow the module to create and update its source-backed compendium entries when a GM loads the world.",
   "PTG2EInfiniteSparks.Notifications.WrongSystem": "PTG2e Infinite Sparks is built for the Part-Time Gods 2e system."
 }
-

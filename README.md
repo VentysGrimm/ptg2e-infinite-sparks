@@ -10,7 +10,7 @@ This repository is set up to become a source-backed module. The PDF and extracte
 - `scripts/` - Module entry points and future automation.
 - `styles/` - Module-scoped CSS.
 - `languages/` - Localization strings.
-- `packs/` - Placeholder compendium pack directories.
+- `packs/` - Compendium pack directories, with source-backed entries populated by module data scripts.
 - `docs/` - Project notes and source workflow.
 - `source-material/` - Local-only source PDF, extracted text, and scratch files.
 - `tools/` - Validation and packaging helpers.
@@ -41,6 +41,30 @@ npm run validate
 
 The validator checks the manifest, referenced module assets, pack paths, and whether `source-material/` has accidentally been tracked.
 
+## Foundry Install
+
+Use this manifest URL in Foundry's **Install Module** dialog:
+
+```text
+https://raw.githubusercontent.com/VentysGrimm/ptg2e-infinite-sparks/main/module.json
+```
+
+`module.json` points Foundry at the public `main` branch manifest and GitHub archive download.
+
+You can also build local release assets with:
+
+```powershell
+npm run package
+```
+
+On PowerShell systems where `npm.ps1` is blocked, use:
+
+```powershell
+npm.cmd run package
+```
+
+This creates `dist/module.json` and `dist/module.zip`, excluding local-only folders such as `source-material/`, `tmp/`, `.git/`, and `node_modules/`.
+
 ## Foundry Development Install
 
 For local development, place or link this folder into your Foundry user data modules directory as:
@@ -50,4 +74,3 @@ Data/modules/ptg2e-infinite-sparks
 ```
 
 Then enable **PTG2e Infinite Sparks** in a world using the **Part-Time Gods 2e** system.
-
