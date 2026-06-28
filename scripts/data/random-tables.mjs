@@ -1,6 +1,6 @@
 import { makeRollTable, slugify } from "./foundry-builders.mjs";
 
-const CONTENT_VERSION = "2026.06.27.1";
+const CONTENT_VERSION = "2026.06.28.1";
 const D10 = "1d10";
 const TWO_D10 = "2d10";
 

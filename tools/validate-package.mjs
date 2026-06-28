@@ -124,6 +124,21 @@ for (const pack of manifest.packs ?? []) {
   }
 }
 
+const modulePackFolder = (manifest.packFolders ?? []).find((folder) => folder.name === "PTG2e Infinite Sparks");
+const folderPackNames = new Set(modulePackFolder?.packs ?? []);
+
+assert(Boolean(modulePackFolder), "module.json must group compendiums in a PTG2e Infinite Sparks pack folder");
+assert(modulePackFolder?.sorting === "m", "PTG2e Infinite Sparks pack folder should use manual sorting");
+assert(folderPackNames.size === packNames.size, "PTG2e Infinite Sparks pack folder must include every module pack");
+
+for (const packName of folderPackNames) {
+  assert(packNames.has(packName), `PTG2e Infinite Sparks pack folder references unknown pack: ${packName}`);
+}
+
+for (const packName of packNames) {
+  assert(folderPackNames.has(packName), `Pack ${packName} must be in the PTG2e Infinite Sparks pack folder`);
+}
+
 function assertFoundryId(id, label) {
   assert(/^[A-Za-z0-9]{16}$/.test(String(id)), `${label} must be a 16-character Foundry id`);
 }
@@ -247,7 +262,7 @@ function assertRollTableSystem(document, label) {
     assert(!resultIds.has(result._id), `${label} has duplicate result _id: ${result._id}`);
     resultIds.add(result._id);
 
-    assert(result.type === 0, `${resultLabel} must be a text result`);
+    assert(result.type === "text", `${resultLabel} must be a text result`);
     assert(Boolean(result.text), `${resultLabel} must include result text`);
     assert(Array.isArray(result.range) && result.range.length === 2, `${resultLabel} must include a numeric range`);
     assert(Number.isInteger(result.range?.[0]), `${resultLabel} range minimum must be an integer`);

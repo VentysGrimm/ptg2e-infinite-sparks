@@ -115,5 +115,20 @@
       },
       "flags": {}
     }
+  ],
+  "packFolders": [
+    {
+      "name": "PTG2e Infinite Sparks",
+      "sorting": "m",
+      "color": "#d28f2c",
+      "packs": [
+        "rules-reference",
+        "character-options",
+        "premade-actors",
+        "scenes-and-handouts",
+        "macros",
+        "random-tables"
+      ]
+    }
   ]
 }

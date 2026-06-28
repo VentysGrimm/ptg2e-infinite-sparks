@@ -760,7 +760,7 @@ export function makeRollTable({
 
       return {
         _id: entry.id ?? foundryId(`${importId}.result.${index}.${entry.text}`),
-        type: 0,
+        type: "text",
         text: entry.text,
         img: entry.img ?? defaultIcon("RollTable"),
         weight: Number(entry.weight ?? (range[1] - range[0] + 1)),

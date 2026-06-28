@@ -43,6 +43,22 @@ async function withUnlockedPack(pack, operation) {
   }
 }
 
+function indexValues(index) {
+  return typeof index?.values === "function" ? Array.from(index.values()) : Array.from(index ?? []);
+}
+
+function indexEntryId(entry) {
+  return entry?._id ?? entry?.id;
+}
+
+function indexEntryFlag(entry, key) {
+  return entry?.flags?.[MODULE_ID]?.[key];
+}
+
+async function deletePackDocument(documentClass, id, collection) {
+  await documentClass.deleteDocuments([id], { pack: collection });
+}
+
 async function syncPack({ collection, documentName, documents }) {
   const pack = game.packs.get(collection);
 
@@ -59,14 +75,20 @@ async function syncPack({ collection, documentName, documents }) {
   }
 
   return withUnlockedPack(pack, async () => {
-    const existingDocuments = await pack.getDocuments();
+    const existingDocuments = indexValues(await pack.getIndex({
+      fields: [
+        `flags.${MODULE_ID}.contentVersion`,
+        `flags.${MODULE_ID}.importId`
+      ]
+    }));
     const existingByImportId = new Map();
     const existingById = new Map();
 
     for (const document of existingDocuments) {
-      existingById.set(document.id, document);
+      const id = indexEntryId(document);
+      if (id) existingById.set(id, document);
 
-      const importId = document.getFlag(MODULE_ID, "importId");
+      const importId = indexEntryFlag(document, "importId");
       if (importId) existingByImportId.set(importId, document);
     }
 
@@ -77,10 +99,11 @@ async function syncPack({ collection, documentName, documents }) {
     let skipped = 0;
 
     for (const document of existingDocuments) {
-      const importId = document.getFlag(MODULE_ID, "importId");
-      if (!importId || wantedImportIds.has(importId)) continue;
+      const id = indexEntryId(document);
+      const importId = indexEntryFlag(document, "importId");
+      if (!id || !importId || wantedImportIds.has(importId)) continue;
 
-      await document.delete();
+      await deletePackDocument(documentClass, id, collection);
       removed += 1;
     }
 
@@ -89,13 +112,13 @@ async function syncPack({ collection, documentName, documents }) {
       const contentVersion = data.flags?.[MODULE_ID]?.contentVersion;
       const existing = existingByImportId.get(importId) ?? existingById.get(data._id);
 
-      if (existing?.getFlag(MODULE_ID, "contentVersion") === contentVersion) {
+      if (indexEntryFlag(existing, "contentVersion") === contentVersion) {
         skipped += 1;
         continue;
       }
 
       if (existing) {
-        await existing.delete();
+        await deletePackDocument(documentClass, indexEntryId(existing), collection);
         updated += 1;
       } else {
         created += 1;
