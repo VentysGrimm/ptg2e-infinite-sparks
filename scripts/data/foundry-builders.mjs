@@ -318,6 +318,13 @@ export function skillList(skills = {}) {
     .join(", ");
 }
 
+function manifestationList(manifestations = {}) {
+  return Object.entries(manifestations)
+    .filter(([, value]) => Number(value) !== 0)
+    .map(([key, value]) => `${MANIFESTATION_LABELS[key] ?? key} +${value}`)
+    .join(", ");
+}
+
 function attachmentList(attachments = []) {
   return attachments.map((attachment) => `Level ${attachment.level} ${attachment.name}`).join("; ");
 }
@@ -679,6 +686,72 @@ export function makeArchetype({ archetype, contentVersion }) {
     },
     moduleFlags: {
       kind: "archetype-choice"
+    }
+  });
+}
+
+export function makeTheology({ theology, contentVersion }) {
+  const blessing = blessingOption(theology.blessing.name, theology.blessing.effect, theology.pdfPages);
+  const curse = curseOption(theology.curse.name, theology.curse.effect, theology.pdfPages);
+  const summary = `${theology.name} is an Infinite Sparks Theology with Free Time ${theology.freeTime} and Wealth ${theology.wealth}.`;
+  const fullText = [
+    heading(2, theology.name),
+    paragraph(theology.history),
+    paragraph(theology.lifestyle),
+    paragraph(theology.playStyle),
+    heading(3, "Character Creation"),
+    list([
+      `Other names: ${theology.aliases.join(", ")}`,
+      `Stereotypes: ${theology.stereotypes.join(", ")}`,
+      `Theology Skills: ${skillList(theology.skills)}`,
+      `Manifestations: ${manifestationList(theology.manifestations)}`,
+      `Free Time ${theology.freeTime}`,
+      `Wealth ${theology.wealth}`,
+      `Associated sample god: ${theology.associatedSampleGod}`
+    ]),
+    abilitySection("Blessing", [theology.blessing]),
+    abilitySection("Curse", [theology.curse]),
+    heading(3, "Rules Use"),
+    paragraph("Choose this Theology during character creation. The listed skills, Manifestations, Free Time, Wealth, Blessing, and Curse are the complete source-backed Theology grants for this option.")
+  ].join("");
+
+  return makeItem({
+    type: "theology",
+    name: theology.name,
+    importId: `character-options.theology.${slugify(theology.name)}`,
+    contentVersion,
+    pdfPages: theology.pdfPages,
+    summary,
+    fullText,
+    system: {
+      aliases: theology.aliases,
+      stereotypes: theology.stereotypes,
+      associatedSampleGod: theology.associatedSampleGod,
+      blessing,
+      curse,
+      grants: normalizeGrants({
+        skills: theology.skills,
+        manifestations: theology.manifestations,
+        resources: {
+          freeTime: theology.freeTime,
+          wealth: theology.wealth
+        },
+        blessing: blessing.name,
+        curse: curse.name
+      }),
+      description: fullText,
+      notes: paragraph(makeSource(theology.pdfPages).label)
+    },
+    usage: {
+      kind: "passive",
+      trigger: "character creation",
+      target: "self"
+    },
+    automation: {
+      action: "apply-theology-choice"
+    },
+    moduleFlags: {
+      kind: "theology-choice"
     }
   });
 }

@@ -1,10 +1,12 @@
 import {
   attachmentOption as attachment,
   makeArchetype,
-  makeOccupationCareer
+  makeOccupationCareer,
+  makeTheology
 } from "./foundry-builders.mjs";
 
-const CONTENT_VERSION = "2026-06-27.chapter-two-character-options.2";
+const CHAPTER_TWO_CONTENT_VERSION = "2026-06-27.chapter-two-character-options.2";
+const THEOLOGY_CONTENT_VERSION = "2026-06-29.chapter-three-theologies.1";
 
 const OCCUPATION_FAMILIES = [
   occupationFamily("Business Owner", [23, 24], {
@@ -314,15 +316,166 @@ const ARCHETYPES = [
   ])
 ];
 
+const THEOLOGIES = [
+  theology("Coatlicue's Step-Children", [56, 57], ["Fence-straddlers", "Peacemakers", "Idealists"], ["Compromised", "Apologists", "Diplomats"], {
+    athletics: 1,
+    knowledge: 1,
+    perception: 1,
+    stealth: 1,
+    tech: 1
+  }, {
+    aegis: 2,
+    oracle: 1,
+    soul: 1
+  }, 2, 1, "Miakoda Atreides, Goddess of Conspiracy",
+  "Coatlicue's Step-Children seek peace between gods and Outsiders, shelter mortals caught in divine affairs, and create Touched agents to bridge societies that usually meet through suspicion or violence.",
+  "Initiates live among Outsiders to learn fosterage, tolerance, vigilance, and the practical risks of strange customs. Their mortal lives often weaken, while Outsider and Worshipper ties grow stronger.",
+  "Step-Child stories revolve around diplomacy with inhuman communities, protecting mortals, and convincing a pantheon that peace with Outsiders is worth the suspicion it creates.",
+  blessing("Step-Mother's Touch", "For 1 Fragment, approach and speak with a non-hostile Outsider without fear; while the god and companions remain non-aggressive, the Outsider does not attack from compulsion, and the god adds Spark to social checks in that interaction. The god may also spend 2 Fragments to grant a mortal one Truth or one Dominion effect for three days, recharge it for another three days with 1 Fragment, and once per year make it permanent by losing 1 permanent Fragment."),
+  curse("Atonement", "Begin play with at least a Level 1 Vassal, though the Theology does not grant it for free. Ignoring the Vassal causes 2 Strain instead of 1. If the god initiates harm against an Outsider, they suffer 1 Health and 1 Psyche damage that cannot be reduced, remove 1 Pantheon Die, and take a cumulative -1 penalty to all checks until they atone; defending themselves, their pantheon, or Attachments is allowed.")),
+  theology("Crofters of Destiny", [60, 61], ["Norns", "Crofters", "Tools"], ["Assured", "Arrogant", "Rebellious"], {
+    athletics: 1,
+    discipline: 1,
+    intuition: 1,
+    perform: 1,
+    tech: 1
+  }, {
+    journey: 1,
+    puppetry: 2,
+    ruin: 1
+  }, 2, 1, "Tavion Brooks, God of Names",
+  "Crofters of Destiny reject cruel old divine orders and try to keep godhood rooted in moral, worldly futures rather than immortal tyranny.",
+  "Crofters recruit and mentor in rotating groups, often called Norns, so no god holds power too long. They prize youth, examples, wards, and direct engagement with politics.",
+  "Crofter stories ask what divine power should be and whether a god can guide the future without becoming the next oppressive elder power.",
+  blessing("Fateful Existence", "During character creation, gain +2 levels to spend on Divine Allies or Vassals. In play, affect one check by counting dice showing 5+ as successes or by removing the chance of Critical Failure so 1s count as successes. The first use in a Scene costs 1 Fragment; each later use in the same Scene costs 2 Pantheon Dice."),
+  curse("Fear of Power", "Planning Phase rolls for Bonds take a penalty equal to Spark - 1, increased by +1 for the Session after using Fateful Existence. The Crofter also suffers -1 Influence and Empathy per Spark Level when interacting with a god whose Spark is higher than theirs.")),
+  theology("Fenric Shackles", [64, 65], ["Shackles", "Tamers", "Slavers"], ["Confident", "Domineering", "Sadistic"], {
+    deception: 1,
+    fighting: 1,
+    influence: 1,
+    knowledge: 1,
+    might: 1
+  }, {
+    minion: 1,
+    ruin: 2,
+    shaping: 1
+  }, 1, 2, "Vialle Kincaid, Goddess of Fencers",
+  "The Fenric Shackles descend from gods who learned soul-binding rites and used them to imprison impossible Outsider threats, leaving them with a legacy of control and oppression.",
+  "Shackles train to dominate themselves and others, often balancing mortal authority with a dangerous urge to bind stronger Outsiders into service.",
+  "Shackle stories center on control, fear, and the moral cost of enslaving Outsiders when survival and power seem to demand it.",
+  blessing("Soul Chains", "Gain the Immunity (Fear) Truth and may control enslaved Outsiders whose total Spark does not exceed Spark x2. A starting character may choose one Outsider within this limit. Each enslaved Outsider is a Vassal with level equal to Spark + 1, maximum 5; spend 1 Fragment to force compliance for the Session, with refusal causing 1 Strain. Once per in-game month when the Outsider would demand time, it may try to break free; retain control with Influence + Might against the Outsider's Spark, and allow resistance when a command violates its nature."),
+  curse("Unbalanced Power", "Bonds are capped at Level 3; any higher Bond levels from character creation drop to 3 and become extra Attachment points for Step 5. The Shackle also gains a Power 2 Failing and must account for each thrall's needs, because neglect can lead to intervention, escape, death, or another severe consequence.")),
+  theology("Gaea's Wardens", [68, 69], ["Gaea's Blood", "Wardens", "Savages"], ["Protective", "Territorial", "Misanthropic"], {
+    empathy: 1,
+    marksman: 1,
+    perform: 1,
+    stealth: 1,
+    survival: 1
+  }, {
+    aegis: 1,
+    beckon: 2,
+    shaping: 1
+  }, 2, 1, "Brigida Hill, Goddess of Bears",
+  "Gaea's Wardens see the Earth as the Source's body and put the planet above humanity, Outsiders, and divine politics.",
+  "Wardens often abandon ordinary lives for activism, wilderness, ritual, or violent protection of the land, while arguing internally over how far their mission should go.",
+  "Warden stories focus on protecting the world instead of people, choosing how much modern life must be cut away, and fitting that uncompromising purpose into a pantheon.",
+  blessing("Gaea's Blood", "Gain +1 to checks per level of the god's current Bleeding Condition and reduce Bleeding check penalties by 2. The god may also inflict at least Bleeding 2 on a human or god to gain +2 on their next Manifestation check; a Bestial Dominion allows the associated beast to be sacrificed this way. The god cannot use their own blood and a victim's blood on the same check, gains +1 maximum Health, and chooses one free Truth from Aquatic, Beast Form, Beast Tongue, or Divinely Skilled (Survival); the unchosen Truths cost half XP later."),
+  curse("Modern Hatred", "Gain a Vengeance 2 Failing tied to hatred of modern harm against the Earth. During character creation, determine Warden points of interest last: roll one die for the outer column, with 1-3 as column 1, 4-5 as column 2, 6-7 as column 9, and 8-10 as column 10, then roll the row normally. If a point of interest ends up beside another player's modern location, it functions one level lower.")),
+  theology("Hearthfire Society", [72, 73], ["Web-Spinners", "Architects", "Gardeners"], ["Scheming", "Meticulous", "Observant"], {
+    crafts: 1,
+    influence: 1,
+    intuition: 1,
+    medicine: 1,
+    perform: 1
+  }, {
+    oracle: 1,
+    puppetry: 1,
+    soul: 2
+  }, 1, 3, "Sharon Dershowitz, Goddess of Graffiti",
+  "The Hearthfire Society cultivates cities as living domains, guiding civilization through influence, committees, planning, and quiet control rather than open rule.",
+  "Web-Spinners seek roles that shape territory and civic systems, and they are willing to remove obstacles if they believe the domain's growth requires it.",
+  "Architect stories involve maintaining webs of influence, expanding divine territory, and deciding how far to push Bonds and communities in the name of progress.",
+  blessing("Community Command", "Costs for items or services are reduced by 2 when the purchase clearly benefits the community the god commands. During character creation, gain +2 levels for Landmark Bonds and place all points of interest anywhere on the Territory Grid instead of rolling. The god may also place one point of interest for each other player if they dislike its random location, and Sense Spark treats the god's Spark as +1 higher while inside their territory."),
+  curse("Everything is at Stake", "Whenever an Attachment drops a level and the god would gain a Failing, increase that Failing's level by +1. If a Landmark Bond takes Strain, the god takes the same amount of Psyche damage, which cannot be negated, reduced, or converted to Conditions.")),
+  theology("Nanuk's Outlanders", [76, 77], ["Exiled", "Outlanders", "Bears"], ["Understanding", "Bridges", "Mixing with the Wrong Crowd"], {
+    discipline: 1,
+    empathy: 1,
+    fortitude: 1,
+    might: 1,
+    survival: 1
+  }, {
+    beckon: 1,
+    minion: 1,
+    shaping: 2
+  }, 3, 0, "Jason Blalock, God of Fear",
+  "Nanuk's Outlanders protect Outsiders and divine exiles, building hidden communities where gods and monsters can survive beside each other.",
+  "Outlanders live between divine politics and Outsider obligations, acting as diplomats, protectors, and mentors while constantly making room for inhuman neighbors.",
+  "Outlander stories bring a pantheon into Outsider society and ask whether peace, hospitality, and swift retaliation can coexist.",
+  blessing("Brothers In Arms", "Gain +2 Vassal levels. For 1 Fragment, gain access to one Outsider Payoff effect without ingesting flesh; only one Payoff can be active at a time and this works only with Outsiders. When attacked by an Outsider, spend 1 Fragment to avoid the attack without a check, impose a cumulative -2 penalty on that Outsider's next attack against the god, and become unable to attack that Outsider as the aura of peace takes hold."),
+  curse("Monster Magnet", "Suffer -2 Stealth against Outsiders. In Step 5, gain a Level 3 Outsider Community Group Bond that does not count against Bond limits and has Shared Lessons and Lead Followup but not Resources; Wealth cannot avoid interaction with it. Each Strain to this Bond costs 1 Free Time, and each lost level permanently reduces maximum Free Time by 1 in addition to normal consequences. If maximum Free Time reaches 0, remove another Attachment and restore Free Time equal to its former level. After recording this Bond, receive 3 normal Attachment points.")),
+  theology("New Imperium", [80, 81], ["Lords", "Legends", "Imperials"], ["Conquerors", "Connected", "Can't Think For Themselves"], {
+    deception: 1,
+    discipline: 1,
+    marksman: 1,
+    speed: 1,
+    travel: 1
+  }, {
+    journey: 2,
+    puppetry: 1,
+    ruin: 1
+  }, 0, 3, "Andrej Antonov, God of Mist",
+  "The New Imperium builds an empire of gods who want legends, kingdoms, and enlightened divine order to survive the Descending Storm.",
+  "Imperials are vetted, trained, organized, and supported as noble agents of a growing empire, with networks that spread through mortal and divine institutions.",
+  "Imperial stories revolve around expansion, command, tactical brilliance, and the question of what kind of kingdom the god wants to rule.",
+  blessing("Legion", "During character creation, the GM randomly rolls three Territory Grid points of interest that represent New Imperium expansion. Each is a Level 1 Attachment of the player's choice: Worshipper, Landmark Bond, or Individual Bond. In Battle, spend 1 Fragment and make a Moderate (2) Intuition + Perception check; each success can either add +1 die to a personal Battle pool or be spent to alter the battlefield with routes, obstacles, barriers, or similar advantages."),
+  curse("Assumed Nobility", "When beaten, one-upped, or tricked by another god, take Embarrassed 1. If the failure is against non-gods such as mortals or Outsiders, the Condition is Embarrassed 2. These Conditions do not begin to fade until the Lord proves themself better or deals with the one who slighted them.")),
+  theology("Prayer Tenders", [84, 85], ["Cultivators", "Genies", "Legendaries"], ["Rabble-Rousers", "Territorial", "Delusional"], {
+    empathy: 1,
+    fighting: 1,
+    medicine: 1,
+    perception: 1,
+    travel: 1
+  }, {
+    aegis: 1,
+    minion: 2,
+    soul: 1
+  }, 1, 2, "Joseph Cheung, God of Wolves",
+  "Prayer Tenders cultivate worship and answer mortal need, turning legends, cults, rescues, and promises into living congregations.",
+  "Cultivators build symbiotic or controlling relationships with worshippers, protect their congregations jealously, and risk losing ordinary life to reverence.",
+  "Prayer Tender stories explore what followers want from their god, what the god wants to become, and how worship can help or divide a pantheon.",
+  blessing("Craving Adulation", "During character creation, receive a Level 1 Chosen One Worshipper that does not reduce permanent Fragments, a Level 1 Preacher Worshipper, and +4 additional Worshipper levels. Gain +1 to all Planning and Execution Phase checks with Worshippers. Devoting a Scene to Worshippers heals 2 Strain, and Split Attention heals 1 Strain on a 5-10."),
+  curse("We Summon Thee", "When Worshippers need attention and the god is out of Free Time, they may summon and teleport the god to their Territory Grid point or to a random inconvenient location chosen by the GM. The god may spend 1 Fragment and make a Moderate (2) Discipline + Intuition check to resist; success treats it as Ignoring the Worshippers and imposes -1 to all checks until the god tends their prayers, while failure teleports them. All non-Worshipper Attachments act as if they are 1 level lower.")),
+  theology("Reliquarians", [88, 89], ["Bookworms", "Relic Hunters", "Joneses"], ["Learned", "Cerebral", "Absent-Minded"], {
+    crafts: 1,
+    fortitude: 1,
+    knowledge: 1,
+    speed: 1,
+    tech: 1
+  }, {
+    beckon: 1,
+    journey: 1,
+    oracle: 2
+  }, 1, 2, "Eli White, God of Learning",
+  "Reliquarians preserve the hidden craft of relic-making, hunt lost divine objects, and guard vaults of dangerous or useful artifacts.",
+  "Relic hunters chase leads through archives, markets, museums, libraries, and travel networks, often dropping social obligations when the next artifact appears.",
+  "Reliquarian stories involve obsession, discovery, creation, and the danger of becoming valuable enough for other gods to capture or exploit.",
+  blessing("A Relic for Everything", "Sense relics, including Soulbound Relics, similarly to Sense Spark. During character creation, gain +2 Relic levels, ignore Attunement checks for Level 1 and 2 Relics, and gain +2 on other Attunement checks. The god may create a Relic by imbuing it with 1 Fragment, permanently lowering available Fragments by 1 per creation; the created Relic cannot exceed the god's Spark unless the GM allows an exception. To duplicate an existing Relic, find and destroy one, then make a Tough (3) Knowledge + Crafts check; success memorizes the blueprint for future creations, while failure destroys the Relic without learning it."),
+  curse("Hoarding", "The god receives only 3 points instead of 5 for Attachments during character creation and gains a Hoarder 2 Failing that affects every aspect of life. Their obsession covers relics and mundane collected scraps alike."))
+];
+
 export const CHARACTER_OPTION_ITEMS = [
   ...OCCUPATION_FAMILIES.flatMap((family) => family.careers.map((entry) => makeOccupationCareer({
     family,
     career: entry,
-    contentVersion: CONTENT_VERSION
+    contentVersion: CHAPTER_TWO_CONTENT_VERSION
   }))),
   ...ARCHETYPES.map((entry) => makeArchetype({
     archetype: entry,
-    contentVersion: CONTENT_VERSION
+    contentVersion: CHAPTER_TWO_CONTENT_VERSION
+  })),
+  ...THEOLOGIES.map((entry) => makeTheology({
+    theology: entry,
+    contentVersion: THEOLOGY_CONTENT_VERSION
   }))
 ];
 
@@ -358,6 +511,25 @@ function archetype(name, pdfPages, definingTrait, skills, attachments, descripti
     description,
     blessings,
     curses
+  };
+}
+
+function theology(name, pdfPages, aliases, stereotypes, skills, manifestations, freeTime, wealth, associatedSampleGod, history, lifestyle, playStyle, blessing, curse) {
+  return {
+    name,
+    pdfPages,
+    aliases,
+    stereotypes,
+    skills,
+    manifestations,
+    freeTime,
+    wealth,
+    associatedSampleGod,
+    history,
+    lifestyle,
+    playStyle,
+    blessing,
+    curse
   };
 }
 

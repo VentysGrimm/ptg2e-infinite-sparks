@@ -42,6 +42,7 @@ Current implemented slice:
 - `scripts/data/foundry-builders.mjs` creates source-aware JournalEntry text pages, Item documents, character Actor documents, and RollTable documents.
 - `scripts/data/rules-reference.mjs` starts the readable rules reference with Chapter One: When Gods Collide.
 - `scripts/data/character-options.mjs` seeds 30 Occupation career Items and 6 Archetype Items from Chapter Two, with complete source-backed creation choices, resources, attachment choices, Blessings, Curses, and rules-use explanations.
+- `scripts/data/character-options.mjs` also seeds 9 Chapter Three Theology Items with aliases, stereotypes, skills, Manifestations, Free Time, Wealth, associated sample gods, Blessings, Curses, and rules-use explanations.
 - `scripts/data/premade-actors.mjs` seeds 9 Chapter Three sample god character Actors.
 - `scripts/data/random-tables.mjs` seeds the appendix random-generation RollTables for Attachments, Occupations, Archetypes, Dominions, and Theologies.
 - `scripts/data/premade-compendiums.mjs` populates flagged Rules Reference, Character Options, Premade Actors, and Random Tables compendium entries at GM ready.
@@ -170,7 +171,7 @@ Important note: the appendix table spells the city-building Theology as `Heathfi
 
 Source range: PDF pages 55-91.
 
-Create nine Theology entries with history/lifestyle summaries, aliases, stereotypes, skills, Manifestations, Free Time, Wealth, Blessings/Curses, and source reference.
+Implemented in `scripts/data/character-options.mjs` as nine Theology Items with history/lifestyle summaries, aliases, stereotypes, skills, Manifestations, Free Time, Wealth, Blessings/Curses, associated sample god links, and source references.
 
 | Theology | Associated Sample God |
 | --- | --- |
@@ -186,13 +187,15 @@ Create nine Theology entries with history/lifestyle summaries, aliases, stereoty
 
 Foundry targets:
 
-- Theology Items if the PTG system supports them.
-- Rules Reference journal pages for full read-through.
-- Actor entries for the associated sample gods, if the system schema supports useful NPC/god actors.
+- Theology Items in `character-options`.
+- Associated sample god Actors in `premade-actors`.
+- Future Rules Reference or handout journal pages for full read-through and GM use.
 
 ### New Entitlements
 
 Source range: PDF pages 92-94.
+
+Next recommended slice after Theology Items.
 
 Create Entitlement entries or rules journals for:
 
@@ -357,7 +360,7 @@ After content packs exist:
 ## Current Scaffold Gaps Found By This Scan
 
 - Scenes/handouts and macros still need real generated content.
-- The current broad `character-options` pack may become crowded once Theologies, Relics, Worshippers, and Soulbound entries are added.
+- The current broad `character-options` pack now includes Occupations, Archetypes, and Theologies, and may become crowded once Entitlements, Relics, Worshippers, and Soulbound entries are added.
 - GM handouts for sample gods, Theology histories, and story hooks still need to be built.
-- Item schema mapping needs confirmation before deciding whether Occupations, Archetypes, Failings, Bonds, Theologies, Relics, and Worshippers become Items, Journal pages, or both.
+- Item schema mapping needs confirmation before deciding whether Failings, Bonds, Entitlements, Relics, Worshippers, and Soulbound entries become Items, Journal pages, or both.
 - The PDF contains extraction artifacts, so table data and names should be checked against rendered pages when entered.

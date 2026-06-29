@@ -177,6 +177,18 @@ function assertReadableTextIncludes(haystack, needle, label) {
   assert(compactHaystack.includes(excerpt), `${label} must include readable rules text for: ${excerpt}`);
 }
 
+function assertPositiveRatings(ratings, allowedKeys, expectedCount, label) {
+  const entries = Object.entries(ratings ?? {}).filter(([, value]) => Number(value) > 0);
+
+  assert(entries.length === expectedCount, `${label} must include ${expectedCount} positive ratings`);
+
+  for (const [key, value] of entries) {
+    assert(allowedKeys.includes(key), `${label} includes unknown rating key: ${key}`);
+    assert(Number.isInteger(value), `${label} rating for ${key} must be an integer`);
+    assert(value > 0, `${label} rating for ${key} must be positive`);
+  }
+}
+
 function assertItemSystem(document, label) {
   assert(Boolean(document.type), `${label} must include an Item subtype`);
   assert(Boolean(document.system?.rules?.summary), `${label} must include system.rules.summary`);
@@ -205,6 +217,27 @@ function assertItemSystem(document, label) {
       assertReadableTextIncludes(document.system.rules.fullText, curse.name, `${label} archetype explanation`);
       assertReadableTextIncludes(document.system.rules.fullText, curse.effect, `${label} archetype explanation`);
     }
+  }
+
+  if (document.type === "theology") {
+    assert(Array.isArray(document.system?.aliases) && document.system.aliases.length >= 3, `${label} must include Theology aliases`);
+    assert(Array.isArray(document.system?.stereotypes) && document.system.stereotypes.length >= 3, `${label} must include Theology stereotypes`);
+    assert(Boolean(document.system?.associatedSampleGod), `${label} must link its associated sample god`);
+    assert(Boolean(document.system?.blessing?.name), `${label} must include a Theology Blessing`);
+    assert(Boolean(document.system?.curse?.name), `${label} must include a Theology Curse`);
+    assert(Number.isInteger(document.system?.grants?.resources?.freeTime), `${label} must include Free Time grant`);
+    assert(Number.isInteger(document.system?.grants?.resources?.wealth), `${label} must include Wealth grant`);
+    assert(document.system.grants.resources.freeTime >= 0, `${label} Free Time grant must be non-negative`);
+    assert(document.system.grants.resources.wealth >= 0, `${label} Wealth grant must be non-negative`);
+    assertPositiveRatings(document.system?.grants?.skills, characterSkillKeys, 5, `${label} Theology skills`);
+    assertPositiveRatings(document.system?.grants?.manifestations, characterManifestationKeys, 3, `${label} Theology manifestations`);
+    assertReadableTextIncludes(document.system.rules.fullText, document.system.associatedSampleGod, `${label} theology explanation`);
+    assertReadableTextIncludes(document.system.rules.fullText, `Free Time ${document.system.grants.resources.freeTime}`, `${label} theology explanation`);
+    assertReadableTextIncludes(document.system.rules.fullText, `Wealth ${document.system.grants.resources.wealth}`, `${label} theology explanation`);
+    assertReadableTextIncludes(document.system.rules.fullText, document.system.blessing.name, `${label} theology explanation`);
+    assertReadableTextIncludes(document.system.rules.fullText, document.system.blessing.effect, `${label} theology explanation`);
+    assertReadableTextIncludes(document.system.rules.fullText, document.system.curse.name, `${label} theology explanation`);
+    assertReadableTextIncludes(document.system.rules.fullText, document.system.curse.effect, `${label} theology explanation`);
   }
 }
 
