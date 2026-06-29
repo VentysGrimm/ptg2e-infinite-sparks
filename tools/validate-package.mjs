@@ -254,7 +254,7 @@ function assertRollTableSystem(document, label) {
 
   const resultIds = new Set();
   for (const result of document.results ?? []) {
-    const resultLabel = `${label} result ${result.text ?? "(unnamed)"}`;
+    const resultLabel = `${label} result ${result.name ?? "(unnamed)"}`;
     const resultSource = result.flags?.[moduleId]?.source;
 
     assert(Boolean(result._id), `${resultLabel} must include a stable _id`);
@@ -263,7 +263,9 @@ function assertRollTableSystem(document, label) {
     resultIds.add(result._id);
 
     assert(result.type === "text", `${resultLabel} must be a text result`);
-    assert(Boolean(result.text), `${resultLabel} must include result text`);
+    assert(Boolean(result.name), `${resultLabel} must include result name`);
+    assert(!Object.hasOwn(result, "text"), `${resultLabel} must not use deprecated result.text`);
+    assert(typeof result.description === "string", `${resultLabel} must include a result description string`);
     assert(Array.isArray(result.range) && result.range.length === 2, `${resultLabel} must include a numeric range`);
     assert(Number.isInteger(result.range?.[0]), `${resultLabel} range minimum must be an integer`);
     assert(Number.isInteger(result.range?.[1]), `${resultLabel} range maximum must be an integer`);
